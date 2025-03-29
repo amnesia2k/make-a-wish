@@ -23,7 +23,6 @@
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",
     "@prisma/client": "^5.14.0",
-    "@t3-oss/env-nextjs": "^0.12.0",
     "next": "^15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
