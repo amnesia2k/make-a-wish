@@ -10,11 +10,23 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    @@index([name])
+model Wish {
+    id            String   @id @default(cuid()) // Full CUID for unique identification
+    slug          String   @unique // 10-character slug
+    senderName    String
+    recipientName String
+    message       String
+    spotifyLink   String
+    createdAt     DateTime @default(now())
 }
+
+// this model would be for PosgreSQL for production
+// model Wish {
+//   id            String   @id @default(cuid()) // Full CUID for unique identification
+//   slug          String   @unique @db.VarChar(10) // 10-character slug
+//   senderName    String   @db.VarChar(100) 
+//   recipientName String   @db.VarChar(100) 
+//   message       String   @db.Text
+//   spotifyLink   String   @db.VarChar(255)
+//   createdAt     DateTime @default(now())
+// }

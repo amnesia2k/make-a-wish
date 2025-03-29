@@ -1,37 +1,37 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
+    <div className="from-pastel-pink/20 to-snow-white flex min-h-screen items-center justify-center bg-gradient-to-r px-8">
+      <div className="flex max-w-6xl items-center gap-12">
+        {/* Left - Illustration */}
+        <div className="flex-1">
+          <Image
+            src="/heroo.png"
+            alt="confetti"
+            width={500}
+            height={500}
+            priority
+          />
+        </div>
+
+        {/* Right - Text & CTA */}
+        <div className="flex-1 text-left">
+          <h1 className="font-baloo mb-4 text-5xl leading-tight font-semibold text-black">
+            Send Personalized Wishes for Any Occasion
+          </h1>
+          <p className="text-soft-charcoal mb-6 text-lg">
+            Create a unique wish, add a personal Spotify track, and share the
+            love with anyone special.
+          </p>
+          <Link href="/create">
+            <button className="bg-soft-lavender hover:bg-soft-lavender/80 text-soft-charcoal w-full cursor-pointer rounded-full px-4 py-2 text-[17px] transition duration-300">
+              Make a Wish
+            </button>
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

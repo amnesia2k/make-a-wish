@@ -1,6 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap");
+
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-baloo: "Baloo 2", sans-serif;
+
+  /* colors */
+  --color-soft-lavender: oklch(81.35% 0.113 323.51);
+  --color-pastel-pink: oklch(88.03% 0.06 351.5);
+  --color-powder-blue: oklch(87.51% 0.0502 205.73);
+  --color-mint-green: oklch(91.28% 0.1681 144.05);
+  --color-light-beige: oklch(96.36% 0.0328 107);
+  --color-snow-white: oklch(98.89% 0.0053 17.25);
+  --color-light-gray: oklch(86.69% 0 0);
+  --color-silver: oklch(80.78% 0 0);
+  --color-pale-gold: oklch(82.12% 0.1089 88.87);
+  --color-neon-pink: oklch(74.11% 0.2001 345.28);
+  --color-bright-teal: oklch(88.18% 0.1499 200.08);
+  --color-lime-green: oklch(87.01% 0.28976 141.5505);
+  --color-electric-purple: oklch(60.93% 0.3034 312.94);
+  --color-soft-charcoal: oklch(30.52% 0 0);
+  --color-cool-gray: oklch(73.48% 0 0);
+  --color-bright-yellow: oklch(96.8% 0.211 109.77);
+  --color-red-orange: oklch(66.02% 0.229356 35.4025);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-light-gray);
+    font-size: 90%;
+  }
 }
