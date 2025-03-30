@@ -4,6 +4,17 @@
  *
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "jnz0cus040.ufs.sh",
+      },
+    ],
+
+    loader: "default",
+  },
+};
 
 export default config;
