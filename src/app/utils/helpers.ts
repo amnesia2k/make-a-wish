@@ -24,7 +24,7 @@ export async function fetchImagesFromDrive(): Promise<string[]> {
     );
 
     // Ensure the response is parsed as a defined structure
-    const data: GoogleDriveApiResponse = await res.json();
+    const data = (await res.json()) as GoogleDriveApiResponse;
 
     if (!data.files || data.files.length === 0) {
       console.warn("🚨 No images found in the folder.");

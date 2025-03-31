@@ -8,12 +8,16 @@ export default function CreateWish() {
   const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
-    async function loadImages() {
-      const imagesUrl: string[] = await fetchImagesFromDrive(); // Explicitly typed
-      setImages(imagesUrl);
-    }
+    void (async () => {
+      try {
+        const imagesUrl: string[] = await fetchImagesFromDrive(); // Explicitly typed
+        setImages(imagesUrl);
+      } catch (error) {
+        console.error("🚨 Error loading images:", error);
+      }
+    })();
 
-    loadImages();
+    // loadImages();
   }, []);
 
   return (
