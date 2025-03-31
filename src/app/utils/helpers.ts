@@ -1,5 +1,4 @@
-const FOLDER_ID = process.env.NEXT_PUBLIC_GOOGLE_DRIVE_BIRTHDAY_FOLDER_ID!;
-const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_DRIVE_API_KEY!;
+// const FOLDER_ID = process.env.NEXT_PUBLIC_GOOGLE_DRIVE_BIRTHDAY_FOLDER_ID!;
 
 // Define an explicit type for the API response
 interface GoogleDriveFile {
@@ -12,15 +11,19 @@ interface GoogleDriveApiResponse {
   files: GoogleDriveFile[];
 }
 
-export async function fetchImagesFromDrive(): Promise<string[]> {
-  if (!FOLDER_ID || !API_KEY) {
+export async function fetchImagesFromDrive(
+  folderId: string,
+): Promise<string[]> {
+  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_DRIVE_API_KEY!;
+
+  if (!folderId || !API_KEY) {
     console.error("🚨 Missing API key or folder ID");
     return [];
   }
 
   try {
     const res = await fetch(
-      `https://www.googleapis.com/drive/v3/files?q="${FOLDER_ID}"+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)`,
+      `https://www.googleapis.com/drive/v3/files?q="${folderId}"+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)`,
     );
 
     // Ensure the response is parsed as a defined structure

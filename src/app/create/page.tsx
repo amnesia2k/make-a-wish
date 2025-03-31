@@ -1,40 +1,34 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { fetchImagesFromDrive } from "../utils/helpers";
+import { useState } from "react";
+import WishTypeCard from "./_component/wish-type-card";
+import CardSelection from "./_component/card-selection";
+import { wishType } from ".";
 
 export default function CreateWish() {
-  const [images, setImages] = useState<string[]>([]);
+  const [selectedWishType, setSelectedWishType] = useState<string | null>(null);
 
-  useEffect(() => {
-    void (async () => {
-      try {
-        const imagesUrl: string[] = await fetchImagesFromDrive(); // Explicitly typed
-        setImages(imagesUrl);
-      } catch (error) {
-        console.error("🚨 Error loading images:", error);
-      }
-    })();
-
-    // loadImages();
-  }, []);
+  // console.log(selectedWishType);
 
   return (
-    <div>
-      {images.length === 0 ? (
-        <p>Loading images...</p>
+    <div className="py-5">
+      <h3 className="font-baloo text-soft-charcoal mb-5 text-center text-2xl font-medium">
+        make-a-wish
+      </h3>
+
+      {/* Progress Bar - This is going to be a progress bar to track the step user is currently on, so the width of the self closing div would change dynamically */}
+      <div className="bg-cool-gray h-2 w-full rounded-full">
+        <div className="from-neon-pink to-electric-purple h-2 w-[30%] rounded-full bg-gradient-to-tr" />
+      </div>
+
+      {selectedWishType === null ? (
+        <WishTypeCard onSelect={(type) => setSelectedWishType(type)} />
       ) : (
-        images.map((url, index) => (
-          <div key={index}>
-            <Image src={url} alt={`Image ${index}`} width={200} height={400} />
-          </div>
-        ))
+        <CardSelection
+          wishType={wishType.find((w) => w.name === selectedWishType)}
+          onBack={() => setSelectedWishType(null)}
+        />
       )}
     </div>
   );
 }
-
-// const slugId = createId().slice(0, 10);
-
-// console.log(slugId);
