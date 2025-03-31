@@ -8,7 +8,6 @@ interface CardSelectionProps {
   onBack: () => void;
 }
 
-// 🛠️ Explicitly map wishType names to folder keys
 const WISH_TYPE_MAP: Record<string, string> = {
   "Happy Birthday": "Birthday",
   Congratulations: "Congratulations",
@@ -22,65 +21,65 @@ const WISH_TYPE_MAP: Record<string, string> = {
   "Valentine's": "Valentine's",
 };
 
-// 🔹 FOLDER_IDS with safer env variable handling
 const FOLDER_IDS: Record<string, string | undefined> = {
   Birthday: process.env.NEXT_PUBLIC_GOOGLE_DRIVE_BIRTHDAY_FOLDER_ID,
   Congratulations:
     process.env.NEXT_PUBLIC_GOOGLE_DRIVE_CONGRATULATIONS_FOLDER_ID,
-  // Anniversary: process.env.NEXT_PUBLIC_GOOGLE_DRIVE_ANNIVERSARY_FOLDER_ID,
-  // Mother's Day: process.env.NEXT_PUBLIC_GOOGLE_DRIVE_MOTHERS_DAY_FOLDER_ID,
-  // Father's Day: process.env.NEXT_PUBLIC_GOOGLE_DRIVE_FATHERS_DAY_FOLDER_ID,
 };
-
-console.log("📁 Available Folder IDs:", FOLDER_IDS);
 
 export default function CardSelection({
   wishType = { name: "", image: { src: "" } },
   onBack,
 }: CardSelectionProps) {
-  if (!wishType) return null;
-
+  // Initialize state at the top (before any conditional returns)
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!wishType.name) {
-      console.error("🚨 WishType name is missing.");
+    // Early return if no wishType
+    if (!wishType) {
       setLoading(false);
       return;
     }
 
     async function loadImages() {
-      setLoading(true);
+      try {
+        setLoading(true);
 
-      const mappedWishType = WISH_TYPE_MAP[wishType.name] ?? wishType.name;
-      const folderId = mappedWishType ? FOLDER_IDS[mappedWishType] : undefined;
+        const mappedWishType = WISH_TYPE_MAP[wishType.name] ?? wishType.name;
+        const folderId = mappedWishType
+          ? FOLDER_IDS[mappedWishType]
+          : undefined;
 
-      if (!folderId) {
-        console.error(
-          `🚨 No folder ID found for: ${wishType.name} (${mappedWishType})`,
+        if (!folderId) {
+          console.error(
+            `🚨 No folder ID found for: ${wishType.name} (${mappedWishType})`,
+          );
+          setLoading(false);
+          return;
+        }
+
+        console.log(
+          `🔄 Fetching images for ${mappedWishType} (Folder ID: ${folderId})`,
         );
+
+        const imageUrls = await fetchImagesFromDrive(folderId);
+        setImages(imageUrls);
+      } catch (error) {
+        console.error("Failed to load images:", error);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      console.log(
-        `🔄 Fetching images for ${mappedWishType} (Folder ID: ${folderId})`,
-      );
-
-      const imageUrls = await fetchImagesFromDrive(folderId);
-      setImages(imageUrls);
-      setLoading(false);
     }
 
-    loadImages();
-  }, [wishType]); // Re-fetch when wishType changes
+    void loadImages(); // Explicitly mark promise as intentionally not awaited
+  }, [wishType]);
 
+  // Render nothing if no wishType
   if (!wishType) return null;
 
   return (
     <div className="flex flex-col items-center">
-      {/* Back Button */}
       <button
         onClick={onBack}
         className="my-4 flex cursor-pointer items-center self-start rounded-md px-4 py-2 underline"
@@ -88,10 +87,8 @@ export default function CardSelection({
         <ChevronLeft /> Back
       </button>
 
-      {/* Heading */}
       <h3 className="text-xl font-bold">Select a {wishType.name} Card</h3>
 
-      {/* Loading State */}
       {loading ? (
         <p>Loading cards...</p>
       ) : images.length === 0 ? (
@@ -113,7 +110,3 @@ export default function CardSelection({
     </div>
   );
 }
-
-// alt={``}
-
-// className="h-40 w-32 cursor-pointer rounded-lg border shadow-md"

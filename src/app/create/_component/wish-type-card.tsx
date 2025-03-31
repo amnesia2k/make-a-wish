@@ -1,5 +1,6 @@
 import React from "react";
 import { wishType } from "..";
+import Image from "next/image";
 
 interface WishTypeCardProps {
   onSelect: (type: string) => void;
@@ -19,9 +20,10 @@ export default function WishTypeCard({ onSelect }: WishTypeCardProps) {
             {type?.name}
           </h3>
 
-          <img
+          <Image
             src={type?.image.src}
             alt={type?.name}
+            fill
             className="absolute top-0 right-0 h-full object-contain"
           />
         </div>

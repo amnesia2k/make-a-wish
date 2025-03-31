@@ -1,14 +1,3 @@
-import anniversaryCard from "../../../public/card/Anniversarybg.webp";
-import birthdayCard from "../../../public/card/Birthdaybg.webp";
-import christmasCard from "../../../public/card/Christmasbg.webp";
-import congratulationsCard from "../../../public/card/Congratulationsbg.webp";
-import fatherCard from "../../../public/card/father.webp";
-import justBecauseCard from "../../../public/card/JBbg.webp";
-import motherCard from "../../../public/card/mother.webp";
-import sorryCard from "../../../public/card/Sorrybg.webp";
-import thanksCard from "../../../public/card/Thanksbg.webp";
-import valentineCard from "../../../public/card/vall.webp";
-
 export const wishType = [
   {
     id: 1,
