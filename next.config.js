@@ -9,7 +9,7 @@ const config = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "jnz0cus040.ufs.sh",
+        hostname: "drive.google.com",
       },
     ],
 

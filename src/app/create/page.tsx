@@ -1,31 +1,31 @@
-import React from "react";
-import { birthdayCards } from "..";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { fetchImagesFromDrive } from "../utils/helpers";
 
 export default function CreateWish() {
   // const slugId = createId().slice(0, 10);
 
   // console.log(slugId);
 
-  const images = birthdayCards;
+  const [images, setImages] = useState<string[]>([]);
 
-  // console.log(images);
+  useEffect(() => {
+    async function loadImages() {
+      const imagesUrl = await fetchImagesFromDrive();
 
-  // Custom image loader for UploadThing URLs
-  // const uploadThingLoader = ({ src }: { src: string }) => {
-  //   return src; // Ensures Next.js loads it without modifying the URL
-  // };
+      setImages(imagesUrl);
+    }
+
+    loadImages();
+  }, []);
 
   return (
     <div>
-      {images.map((img) => (
-        <div key={img?.id}>
-          <Image
-            src={`/api/image-proxy?url=${encodeURIComponent(img.image)}`}
-            alt={String(img?.id)}
-            width={150}
-            height={300}
-          />
+      {images.map((url, index) => (
+        <div key={index}>
+          <Image src={url} alt={`Image ${index}`} width={200} height={400} />
         </div>
       ))}
     </div>
