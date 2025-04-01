@@ -40,7 +40,8 @@ export default function SenderRecipientForm({
   }
 
   function extractSpotifyEmbedUrl(url: string) {
-    const match = url.match(/track\/([a-zA-Z0-9]+)/);
+    const regex = /track\/([a-zA-Z0-9]+)/;
+    const match = regex.exec(url);
     return match ? `https://open.spotify.com/embed/track/${match[1]}` : "";
   }
 
