@@ -4,9 +4,11 @@ import { useState } from "react";
 import WishTypeCard from "./_component/wish-type-card";
 import CardSelection from "./_component/card-selection";
 import { wishType } from ".";
+import SenderRecipientForm from "./_component/sender-recipient-form";
 
 export default function CreateWish() {
   const [selectedWishType, setSelectedWishType] = useState<string | null>(null);
+  const [selectedCard, setSelectedCard] = useState<string | null>(null);
 
   // console.log(selectedWishType);
 
@@ -23,11 +25,15 @@ export default function CreateWish() {
 
       {selectedWishType === null ? (
         <WishTypeCard onSelect={(type) => setSelectedWishType(type)} />
-      ) : (
+      ) : selectedCard === null ? (
         <CardSelection
           wishType={wishType.find((w) => w.name === selectedWishType)}
           onBack={() => setSelectedWishType(null)}
+          onNext={(card) => setSelectedCard(card)}
         />
+      ) : (
+        /* Step 3: Enter Sender & Recipient Details */
+        <SenderRecipientForm selectedCard={selectedCard} />
       )}
     </div>
   );

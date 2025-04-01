@@ -1,4 +1,4 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { fetchImagesFromDrive } from "~@/app/utils/helpers";
@@ -6,6 +6,7 @@ import { fetchImagesFromDrive } from "~@/app/utils/helpers";
 interface CardSelectionProps {
   wishType?: { name: string; image: { src: string } };
   onBack: () => void;
+  onNext: (selectedCard: string) => void;
 }
 
 const WISH_TYPE_MAP: Record<string, string> = {
@@ -30,10 +31,12 @@ const FOLDER_IDS: Record<string, string | undefined> = {
 export default function CardSelection({
   wishType = { name: "", image: { src: "" } },
   onBack,
+  onNext,
 }: CardSelectionProps) {
   // Initialize state at the top (before any conditional returns)
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCard, setSelectedCard] = useState<string | null>(null);
 
   useEffect(() => {
     // Early return if no wishType
@@ -79,15 +82,8 @@ export default function CardSelection({
   if (!wishType) return null;
 
   return (
-    <div className="flex flex-col items-center">
-      <button
-        onClick={onBack}
-        className="my-4 flex cursor-pointer items-center self-start rounded-md px-4 py-2 underline"
-      >
-        <ChevronLeft /> Back
-      </button>
-
-      <h3 className="text-xl font-bold">Select a {wishType.name} Card</h3>
+    <div className="mx-2 flex flex-col items-center">
+      <h3 className="text-xl font-bold">Select a {wishType?.name} Card</h3>
 
       {loading ? (
         <p>Loading cards...</p>
@@ -102,11 +98,38 @@ export default function CardSelection({
               alt={`Card ${index + 1}`}
               width={150}
               height={200}
-              className="rounded-lg shadow-md"
+              className={`cursor-pointer rounded-lg shadow-md transition-all duration-300 ${selectedCard === src ? "border-electric-purple border p-1 hover:-translate-y-0" : "hover:-translate-y-3"}`}
+              onClick={() => setSelectedCard(src)}
             />
           ))}
         </div>
       )}
+
+      {/* Button Container - Sticks to Bottom */}
+      <div className="bg-snow-white/40 fixed bottom-6 flex w-full max-w-md justify-between rounded-full px-4 py-2 backdrop-blur-2xl">
+        {/* Back Button */}
+        <button
+          onClick={onBack}
+          className="text-soft-charcoal flex cursor-pointer items-center gap-2 rounded-full border px-6 py-3 font-bold"
+        >
+          <ChevronLeft />
+          Back
+        </button>
+
+        {/* Next Button */}
+        <button
+          onClick={() => selectedCard && onNext(selectedCard)}
+          disabled={!selectedCard}
+          className={`flex items-center gap-2 rounded-full px-6 py-3 font-bold text-white transition-all duration-200 ${
+            selectedCard
+              ? "bg-neon-pink hover:bg-neon-pink/70 cursor-pointer"
+              : "cursor-not-allowed bg-gray-400"
+          }`}
+        >
+          Next
+          <ChevronRight />
+        </button>
+      </div>
     </div>
   );
 }
