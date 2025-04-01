@@ -18,6 +18,8 @@ model Wish {
     recipientName String
     message       String
     spotifyLink   String
+    fontStyle     String
+    fontSize      String
     createdAt     DateTime @default(now())
 }
 

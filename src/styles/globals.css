@@ -31,4 +31,26 @@
   body {
     background-color: var(--color-light-gray);
   }
+
+  .custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>")
+      no-repeat right 10px center;
+    background-size: 16px;
+    padding-right: 2rem; /* Space for the arrow */
+    border: 1px solid;
+    border-radius: 6px;
+    font-size: 0.875rem; /* Tailwind's text-sm */
+    cursor: pointer;
+    transition: border 0.2s ease-in-out;
+  }
+
+  /* Hover & Focus Effects */
+  .custom-select:hover,
+  .custom-select:focus {
+    border-color: black; /* Adjust as needed */
+    outline: none;
+  }
 }

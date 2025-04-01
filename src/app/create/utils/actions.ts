@@ -15,6 +15,8 @@ export async function createWish(formData: FormData) {
         message: formData.get("message") as string,
         imageUrl: formData.get("imageUrl") as string,
         spotifyLink: (formData.get("spotifyLink") as string) || "",
+        fontStyle: (formData.get("fontStyle") as string) || "sans-serif",
+        fontSize: (formData.get("fontSize") as string) || "text-sm",
       },
     });
 
