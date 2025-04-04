@@ -1,4 +1,29 @@
+const [images, setImages] = useState<string[]>([]);
 
+**this is to fetch card images
+useEffect(() => {
+  void (async () => {
+    try {
+      const imagesUrl: string[] = await fetchImagesFromDrive(); Explicitly typed
+      setImages(imagesUrl);
+    } catch (error) {
+      console.error("🚨 Error loading images:", error);
+    }
+  })();
+
+  loadImages();
+}, []);
+
+**this is to render card images
+{images.length === 0 ? (
+  <p>Loading images...</p>
+) : (
+  images.map((url, index) => (
+    <div key={index}>
+      <Image src={url} alt={`Image ${index}`} width={200} height={400} />
+    </div>
+  ))
+)}
 
 
 **this is for generating unique slug
