@@ -14,16 +14,7 @@ useEffect(() => {
   loadImages();
 }, []);
 
-**this is to render card images
-{images.length === 0 ? (
-  <p>Loading images...</p>
-) : (
-  images.map((url, index) => (
-    <div key={index}>
-      <Image src={url} alt={`Image ${index}`} width={200} height={400} />
-    </div>
-  ))
-)}
+
 
 
 **this is for generating unique slug
