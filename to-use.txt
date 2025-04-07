@@ -26,3 +26,7 @@ useEffect(() => {
 )}
 
 
+**this is for generating unique slug
+const slugId = createId().slice(0, 10);
+
+console.log(slugId);
