@@ -1,5 +1,6 @@
 import React from "react";
 import prisma from "~@/server/db";
+import WishView from "../_component/wish-view";
 
 interface WishPageProps {
   params: Promise<{
@@ -14,11 +15,13 @@ export default async function WishPage({ params }: WishPageProps) {
     where: { slug },
   });
 
-  return (
-    <div>
-      <h3>
-        {wish?.senderName} - {wish?.slug}
-      </h3>
-    </div>
-  );
+  if (!wish) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p className="text-lg font-bold text-red-500">Wish not found 🥲</p>
+      </div>
+    );
+  }
+
+  return <WishView wish={wish} />;
 }
