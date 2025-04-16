@@ -1,6 +1,7 @@
 "use client";
 
 import { useAnimation, motion } from "motion/react";
+import type { PanInfo } from "motion/react";
 import Image from "next/image";
 import React, { useRef } from "react";
 import type { WishViewProps } from "~@/app/utils/props";
@@ -9,13 +10,16 @@ export default function WishCard({ wish }: WishViewProps) {
   const controls = useAnimation();
   const cardRef = useRef(null);
 
-  const dragEnd = async (_: any, info: any) => {
+  const dragEnd = async (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     if (Math.abs(info.offset.x) > 100) {
       await controls.start({ x: info.offset.x > 0 ? 500 : -500, opacity: 0 });
 
       console.log("Swiped!", wish.slug);
     } else {
-      controls.start({ x: 0 });
+      await controls.start({ x: 0 });
     }
   };
 
@@ -42,9 +46,9 @@ export default function WishCard({ wish }: WishViewProps) {
           />
         )}
         <h2 className="text-lg font-semibold text-gray-800">
-          Hey {wish.recipientName}, you've got a message!
+          Hey {wish.recipientName}, you&apos;ve got a message!
         </h2>
-        <p className="text-gray-600 italic">"{wish.message}"</p>
+        <p className="text-gray-600 italic">&quot;{wish.message}&quot;</p>
         <p className="text-right text-sm text-gray-500">— {wish.senderName}</p>
 
         {wish.spotifyLink && (
