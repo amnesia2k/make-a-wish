@@ -2,12 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { fetchImagesFromDrive } from "~@/app/utils/helpers";
-
-interface CardSelectionProps {
-  wishType?: { name: string; image: { src: string } };
-  onBack: () => void;
-  onNext: (selectedCard: string) => void;
-}
+import type { CardSelectionProps } from "~@/app/utils/props";
 
 const WISH_TYPE_MAP: Record<string, string> = {
   "Happy Birthday": "Birthday",

@@ -1,12 +1,7 @@
 import React from "react";
 import prisma from "~@/server/db";
 import WishView from "../_component/wish-view";
-
-interface WishPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
-}
+import type { WishPageProps } from "~@/app/utils/props";
 
 export default async function WishPage({ params }: WishPageProps) {
   const { slug } = await params;

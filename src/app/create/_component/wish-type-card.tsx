@@ -1,10 +1,7 @@
 import React from "react";
 import { wishType } from "..";
 import Image from "next/image";
-
-interface WishTypeCardProps {
-  onSelect: (type: string) => void;
-}
+import type { WishTypeCardProps } from "~@/app/utils/props";
 
 export default function WishTypeCard({ onSelect }: WishTypeCardProps) {
   return (
